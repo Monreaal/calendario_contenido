@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-geist: 'Inter', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-geist);
+  background: #0D0F14;
+  color: #F0F2F8;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #232838; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #2D3347; }
+
+/* ── Status badges ── */
+.badge-completo   { @apply inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-green-bg text-green; }
+.badge-proceso    { @apply inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-yellow-bg text-yellow; }
+.badge-incompleto { @apply inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-red-bg text-red; }
+
+/* ── Tipo badges ── */
+.tipo-comercial { @apply bg-accent-light text-accent; }
+.tipo-festivo   { @apply bg-purple-bg text-purple; }
+.tipo-efeméride, .tipo-efémeride { @apply bg-surface text-textSub; }
+.tipo-personal  { @apply bg-yellow-bg text-yellow; }
+
+/* ── Calendar pills ── */
+.cal-pill { @apply text-xs px-1.5 py-0.5 rounded-md truncate cursor-pointer transition-all hover:brightness-110 font-medium; }
+.cal-pill-completo   { @apply bg-green-bg text-green; }
+.cal-pill-proceso    { @apply bg-yellow-bg text-yellow; }
+.cal-pill-incompleto { @apply bg-red-bg text-red; }
+.cal-pill-fecha      { @apply bg-accent-light text-accent; }
+
+/* ── Cards ── */
+.card {
+  @apply bg-surface rounded-card border border-border shadow-card;
+}
+.card-hover {
+  @apply card transition-all duration-200 hover:border-border2 hover:shadow-glow;
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  @apply bg-accent hover:bg-accent-hover text-white text-sm font-medium px-4 py-2 rounded-btn transition-all duration-150 flex items-center gap-2;
+}
+.btn-ghost {
+  @apply bg-transparent hover:bg-surfaceHover text-textSub hover:text-text text-sm font-medium px-4 py-2 rounded-btn transition-all duration-150 border border-border hover:border-border2 flex items-center gap-2;
+}
+.btn-icon {
+  @apply p-1.5 rounded-md bg-transparent hover:bg-surfaceHover text-textSub hover:text-text transition-all duration-150 flex items-center justify-center;
+}
+
+/* ── Form inputs ── */
+.form-label {
+  @apply block text-xs font-medium text-textSub mb-1.5 uppercase tracking-wider;
+}
+.form-input {
+  @apply w-full bg-bg border border-border rounded-btn px-3 py-2 text-sm text-text outline-none transition-all duration-150 placeholder:text-textMuted;
+  font-family: var(--font-geist);
+}
+.form-input:focus {
+  @apply border-accent;
+  box-shadow: 0 0 0 3px rgba(79,126,247,0.12);
+}
+select.form-input option { background: #141720; }
+
+/* ── Modal ── */
+.modal-backdrop {
+  @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+}
+.modal-box {
+  @apply bg-surface rounded-card border border-border w-full flex flex-col max-h-[90vh];
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  animation: fadeUp 0.2s ease;
+}
+
+/* ── Animate stagger ── */
+.animate-stagger > * { animation: fadeUp 0.3s ease both; }
+.animate-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.animate-stagger > *:nth-child(2) { animation-delay: 50ms; }
+.animate-stagger > *:nth-child(3) { animation-delay: 100ms; }
+.animate-stagger > *:nth-child(4) { animation-delay: 150ms; }
+.animate-stagger > *:nth-child(5) { animation-delay: 200ms; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Dividers ── */
+.divider { @apply border-t border-border; }
+
+/* ── Stat dot ── */
+.status-dot { @apply w-1.5 h-1.5 rounded-full inline-block mr-1.5; }
+.status-dot-green  { @apply status-dot bg-green; }
+.status-dot-yellow { @apply status-dot bg-yellow; }
+.status-dot-red    { @apply status-dot bg-red; }
