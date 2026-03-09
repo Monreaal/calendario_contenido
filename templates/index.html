@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendario Editorial — Luzzi Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <span class="brand-icon">◈</span>
+    <span class="brand-text">Editorial<em>2025</em></span>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item active" data-view="dashboard">
+      <span class="nav-icon">▦</span><span>Dashboard</span>
+    </a>
+    <a href="#" class="nav-item" data-view="calendario">
+      <span class="nav-icon">◫</span><span>Calendario</span>
+    </a>
+    <a href="#" class="nav-item" data-view="posts">
+      <span class="nav-icon">◧</span><span>Posts</span>
+    </a>
+    <a href="#" class="nav-item" data-view="proyectos">
+      <span class="nav-icon">◩</span><span>Proyectos</span>
+    </a>
+    <a href="#" class="nav-item" data-view="fechas">
+      <span class="nav-icon">◪</span><span>Fechas Clave</span>
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-toggle" id="sidebarToggle">◂</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main" id="main">
+  
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <h1 class="page-title" id="pageTitle">Dashboard</h1>
+    </div>
+    <div class="topbar-right">
+      <button class="btn-primary" id="newPostBtn">+ Nuevo Post</button>
+    </div>
+  </header>
+
+  <!-- VIEWS -->
+  <div class="view-container">
+
+    <!-- DASHBOARD -->
+    <section class="view active" id="view-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card stat-total">
+          <div class="stat-num" id="stat-total">—</div>
+          <div class="stat-label">Posts totales</div>
+        </div>
+        <div class="stat-card stat-completo">
+          <div class="stat-num" id="stat-completo">—</div>
+          <div class="stat-label">Completados</div>
+        </div>
+        <div class="stat-card stat-proceso">
+          <div class="stat-num" id="stat-proceso">—</div>
+          <div class="stat-label">En proceso</div>
+        </div>
+        <div class="stat-card stat-pct">
+          <div class="stat-num" id="stat-pct">—</div>
+          <div class="stat-label">% Completado</div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="card">
+          <h2 class="card-title">Posts por pilar de contenido</h2>
+          <div class="pilares-chart" id="pilaresChart"></div>
+        </div>
+        <div class="card">
+          <h2 class="card-title">Formatos</h2>
+          <div class="formatos-chart" id="formatosChart"></div>
+        </div>
+        <div class="card card-wide">
+          <h2 class="card-title">Próximas fechas importantes</h2>
+          <div class="proximas-fechas" id="proximasFechas"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALENDARIO MENSUAL -->
+    <section class="view" id="view-calendario">
+      <div class="cal-controls">
+        <button class="btn-ghost" id="calPrev">←</button>
+        <h2 class="cal-month-title" id="calMonthTitle">Enero 2025</h2>
+        <button class="btn-ghost" id="calNext">→</button>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+      <div class="cal-legend">
+        <span class="legend-dot completo"></span>Completo
+        <span class="legend-dot proceso"></span>En proceso
+        <span class="legend-dot incompleto"></span>Incompleto
+        <span class="legend-dot fecha-key"></span>Fecha clave
+      </div>
+    </section>
+
+    <!-- POSTS LIST -->
+    <section class="view" id="view-posts">
+      <div class="posts-toolbar">
+        <div class="filter-group">
+          <select class="filter-select" id="filterMes">
+            <option value="">Todos los meses</option>
+            <option>Enero</option><option>Febrero</option><option>Marzo</option>
+            <option>Abril</option><option>Mayo</option><option>Junio</option>
+            <option>Julio</option><option>Agosto</option><option>Septiembre</option>
+            <option>Octubre</option><option>Noviembre</option><option>Diciembre</option>
+          </select>
+          <select class="filter-select" id="filterEstado">
+            <option value="">Todos los estados</option>
+            <option>Completo</option><option>En proceso</option><option>Incompleto</option>
+          </select>
+          <input type="search" class="search-input" id="searchPosts" placeholder="Buscar posts...">
+        </div>
+      </div>
+      <div class="posts-table-wrap">
+        <table class="posts-table">
+          <thead>
+            <tr>
+              <th>Fecha</th><th>Día</th><th>Pilar</th><th>Formato</th>
+              <th>Estado</th><th>Objetivo</th><th>Gancho</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="postsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section class="view" id="view-proyectos">
+      <div class="proyectos-header">
+        <button class="btn-primary" id="newProyectoBtn">+ Nuevo proyecto</button>
+      </div>
+      <div class="proyectos-grid" id="proyectosGrid"></div>
+    </section>
+
+    <!-- FECHAS CLAVE -->
+    <section class="view" id="view-fechas">
+      <div class="fechas-header">
+        <button class="btn-primary" id="newFechaBtn">+ Agregar fecha</button>
+      </div>
+      <div class="fechas-timeline" id="fechasTimeline"></div>
+    </section>
+
+  </div>
+</main>
+
+<!-- MODAL POST -->
+<div class="modal-overlay" id="modalPost">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modalPostTitle">Nuevo Post</h3>
+      <button class="modal-close" id="closeModalPost">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="postForm">
+        <input type="hidden" id="postId">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Mes</label>
+            <select name="mes" id="postMes">
+              <option>Enero</option><option>Febrero</option><option>Marzo</option>
+              <option>Abril</option><option>Mayo</option><option>Junio</option>
+              <option>Julio</option><option>Agosto</option><option>Septiembre</option>
+              <option>Octubre</option><option>Noviembre</option><option>Diciembre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Semana</label>
+            <input type="text" id="postSemana" name="semana" placeholder="SEMANA 1">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Fecha</label>
+            <input type="date" id="postFecha" name="fecha">
+          </div>
+          <div class="form-group">
+            <label>Horario</label>
+            <input type="time" id="postHorario" name="horario">
+          </div>
+          <div class="form-group">
+            <label>Día</label>
+            <select id="postDia" name="dia">
+              <option>Lunes</option><option>Martes</option><option>Miércoles</option>
+              <option>Jueves</option><option>Viernes</option><option>Sábado</option><option>Domingo</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pilar de contenido</label>
+            <input type="text" id="postPilar" name="pilar" placeholder="Ej: Estrategia de Marketing">
+          </div>
+          <div class="form-group">
+            <label>Estado</label>
+            <select id="postEstado" name="estado">
+              <option>Incompleto</option><option>En proceso</option><option>Completo</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Objetivo</label>
+          <input type="text" id="postObjetivo" name="objetivo" placeholder="Ej: Aumentar interacciones">
+        </div>
+        <div class="form-group">
+          <label>Formato</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" id="postImagen" name="formato_imagen"> Imagen</label>
+            <label class="checkbox-label"><input type="checkbox" id="postCarrusel" name="formato_carrusel"> Carrusel</label>
+            <label class="checkbox-label"><input type="checkbox" id="postReel" name="formato_reel"> Reel</label>
+            <label class="checkbox-label"><input type="checkbox" id="postHistoria" name="formato_historia"> Historia</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Gancho</label>
+          <input type="text" id="postGancho" name="gancho" placeholder="Frase que captura la atención">
+        </div>
+        <div class="form-group">
+          <label>Descripción / Caption</label>
+          <textarea id="postDesc" name="descripcion" rows="4" placeholder="Texto del post..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Hashtags</label>
+          <textarea id="postHashtags" name="hashtags" rows="2" placeholder="#hashtag1 #hashtag2..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Indicaciones de diseño</label>
+            <input type="text" id="postDiseno" name="indicaciones_diseno">
+          </div>
+          <div class="form-group">
+            <label>Enlace a archivos</label>
+            <input type="url" id="postEnlace" name="enlace" placeholder="https://...">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Notas</label>
+          <textarea id="postNotas" name="notas" rows="2"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" id="cancelModalPost">Cancelar</button>
+      <button class="btn-primary" id="savePost">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PROYECTO -->
+<div class="modal-overlay" id="modalProyecto">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modalProyectoTitle">Nuevo Proyecto</h3>
+      <button class="modal-close" id="closeModalProyecto">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="proyectoForm">
+        <input type="hidden" id="proyectoId">
+        <div class="form-group">
+          <label>Nombre del proyecto</label>
+          <input type="text" id="proyectoNombre" name="nombre" required>
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea id="proyectoDesc" name="descripcion" rows="2"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Fecha de inicio</label>
+            <input type="date" id="proyectoInicio" name="fecha_inicio">
+          </div>
+          <div class="form-group">
+            <label>Fecha de fin</label>
+            <input type="date" id="proyectoFin" name="fecha_fin">
+          </div>
+          <div class="form-group">
+            <label>Estado</label>
+            <select id="proyectoEstado" name="estado">
+              <option>Activo</option><option>Pausado</option><option>Completado</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Objetivo</label>
+            <input type="text" id="proyectoObjetivo" name="objetivo">
+          </div>
+          <div class="form-group">
+            <label>Recursos necesarios</label>
+            <input type="text" id="proyectoRecursos" name="recursos">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Notas</label>
+          <textarea id="proyectoNotas" name="notas" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Etapas / Tareas</label>
+          <div class="etapas-list" id="etapasList"></div>
+          <button type="button" class="btn-ghost btn-sm" id="addEtapaBtn">+ Agregar etapa</button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" id="cancelModalProyecto">Cancelar</button>
+      <button class="btn-primary" id="saveProyecto">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL FECHA -->
+<div class="modal-overlay" id="modalFecha">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h3 class="modal-title">Nueva Fecha Importante</h3>
+      <button class="modal-close" id="closeModalFecha">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="fechaForm">
+        <div class="form-group">
+          <label>Fecha</label>
+          <input type="date" id="fechaDate" name="fecha" required>
+        </div>
+        <div class="form-group">
+          <label>Título</label>
+          <input type="text" id="fechaTitulo" name="titulo" required placeholder="Ej: Día de la Madre">
+        </div>
+        <div class="form-group">
+          <label>Tipo</label>
+          <select id="fechaTipo" name="tipo">
+            <option value="comercial">Comercial</option>
+            <option value="festivo">Festivo / Feriado</option>
+            <option value="efeméride">Efeméride</option>
+            <option value="personal">Personal</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Notas</label>
+          <textarea id="fechaNotas" name="notas" rows="2"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" id="cancelModalFecha">Cancelar</button>
+      <button class="btn-primary" id="saveFecha">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
