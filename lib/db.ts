@@ -48,7 +48,29 @@ function initSchema() {
       formato_reel INTEGER DEFAULT 0, formato_historia INTEGER DEFAULT 0,
       gancho TEXT DEFAULT '', descripcion TEXT DEFAULT '', hashtags TEXT DEFAULT '',
       indicaciones_diseno TEXT DEFAULT '', notas TEXT DEFAULT '',
+      red_social TEXT DEFAULT 'Instagram',
+      moodboard_imgs TEXT DEFAULT '[]',
+      moodboard_links TEXT DEFAULT '',
       created_at TEXT DEFAULT (datetime('now')), updated_at TEXT DEFAULT (datetime('now'))
+    );
+    CREATE TABLE IF NOT EXISTS marca (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre_marca TEXT DEFAULT '',
+      descripcion TEXT DEFAULT '',
+      publico_objetivo TEXT DEFAULT '',
+      mision TEXT DEFAULT '',
+      vision TEXT DEFAULT '',
+      valores TEXT DEFAULT '',
+      pilares TEXT DEFAULT '',
+      personalidad TEXT DEFAULT '',
+      tono_voz TEXT DEFAULT '',
+      tipografias TEXT DEFAULT '',
+      colores TEXT DEFAULT '',
+      tipo_contenido TEXT DEFAULT '',
+      moodboard_imgs TEXT DEFAULT '[]',
+      moodboard_links TEXT DEFAULT '',
+      notas TEXT DEFAULT '',
+      updated_at TEXT DEFAULT (datetime('now'))
     );
     CREATE TABLE IF NOT EXISTS proyectos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -69,6 +91,16 @@ function initSchema() {
       tipo TEXT DEFAULT 'efeméride', notas TEXT DEFAULT ''
     );
   `)
+  // Migrate existing DBs — add new columns if missing (safe: IF NOT EXISTS not supported in ALTER, use try/catch)
+  const migrations = [
+    "ALTER TABLE posts ADD COLUMN red_social TEXT DEFAULT 'Instagram'",
+    "ALTER TABLE posts ADD COLUMN moodboard_imgs TEXT DEFAULT '[]'",
+    "ALTER TABLE posts ADD COLUMN moodboard_links TEXT DEFAULT ''",
+  ]
+  for (const m of migrations) {
+    try { _db.run(m) } catch (_) { /* column already exists */ }
+  }
+
   const count = queryOne('SELECT COUNT(*) as c FROM posts') as { c: number }
   if (!count || count.c === 0) { seedData(); persist() }
 }
