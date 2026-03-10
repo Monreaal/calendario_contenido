@@ -61,3 +61,22 @@ export interface Stats {
   por_pilar: { pilar: string; c: number }[]
   por_formato: { imagen: number; carrusel: number; reel: number; historia: number }
 }
+
+export interface MarcaData {
+  id?: number
+  nombre_marca: string
+  descripcion: string
+  publico_objetivo: string
+  mision: string
+  vision: string
+  valores: string
+  pilares: string
+  personalidad: string
+  tono_voz: string
+  tipografias: string
+  colores: string
+  tipo_contenido: string
+  moodboard_imgs: string
+  moodboard_links: string
+  notas: string
+}

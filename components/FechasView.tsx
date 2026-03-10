@@ -6,10 +6,10 @@ const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto'
 const TIPOS  = ['comercial','festivo','efeméride','personal']
 
 function tipoStyle(t: string): { bg: string; color: string } {
-  if (t === 'comercial') return { bg:'#1A2540', color:'#4F7EF7' }
+  if (t === 'comercial') return { bg:'var(--surface-hover)', color:'var(--text)' }
   if (t === 'festivo')   return { bg:'#1E1630', color:'#A78BFA' }
   if (t === 'personal')  return { bg:'#291E08', color:'#F5A623' }
-  return { bg:'#1A1E2A', color:'#8B92A8' }
+  return { bg:'var(--surface-hover)', color:'var(--text-sub)' }
 }
 
 export default function FechasView() {
@@ -66,7 +66,7 @@ export default function FechasView() {
                   <div key={f.id}
                     className="flex items-center gap-4 px-5 py-4 group transition-colors"
                     style={{ borderBottom: i < g.items.length-1 ? '1px solid #232838' : undefined }}
-                    onMouseEnter={e=>(e.currentTarget as HTMLElement).style.background='#1A1E2A'}
+                    onMouseEnter={e=>(e.currentTarget as HTMLElement).style.background='var(--surface-hover)'}
                     onMouseLeave={e=>(e.currentTarget as HTMLElement).style.background='transparent'}
                   >
                     {/* Date bubble */}

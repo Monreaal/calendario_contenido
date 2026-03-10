@@ -10,9 +10,9 @@ interface ProjForm {
 const EMPTY: ProjForm = { nombre:'', descripcion:'', fecha_inicio:'', fecha_fin:'', objetivo:'', recursos:'', notas:'', estado:'Activo', etapas:[] }
 
 function estadoStyle(e: string): { bg: string; color: string } {
-  if (e === 'Activo')     return { bg:'#1A2540', color:'#4F7EF7' }
+  if (e === 'Activo')     return { bg:'var(--surface-hover)', color:'var(--text)' }
   if (e === 'Completado') return { bg:'#0D2A1C', color:'#34C97B' }
-  return { bg:'#1A1E2A', color:'#8B92A8' }
+  return { bg:'var(--surface-hover)', color:'var(--text-sub)' }
 }
 
 export default function ProyectosView() {
@@ -90,11 +90,11 @@ export default function ProyectosView() {
                   <div>
                     <div className="flex justify-between text-xs text-textSub mb-1.5">
                       <span>Progreso</span>
-                      <span className="font-medium" style={{ color:'#4F7EF7' }}>{done}/{etapas.length} · {pct}%</span>
+                      <span className="font-medium" style={{ color:'var(--text-sub)' }}>{done}/{etapas.length} · {pct}%</span>
                     </div>
-                    <div className="rounded-full h-1.5" style={{ background:'#232838' }}>
+                    <div className="rounded-full h-1.5" style={{ background:'var(--border)' }}>
                       <div className="h-1.5 rounded-full transition-all duration-700"
-                        style={{ width:`${pct}%`, background:'linear-gradient(90deg,#4F7EF7,#7C3AED)' }} />
+                        style={{ width:`${pct}%`, background: 'var(--text)' }} />
                     </div>
                   </div>
                 )}
@@ -157,9 +157,9 @@ export default function ProyectosView() {
                 <label className="form-label mb-2 block">Etapas / Tareas</label>
                 <div className="space-y-2">
                   {form.etapas.map((et,i) => (
-                    <div key={i} className="flex gap-2 items-center p-2 rounded-lg" style={{ background:'#1A1E2A', border:'1px solid #232838' }}>
-                      <input className="form-input flex-1 !bg-bg" placeholder="Tarea..." value={et.tarea} onChange={e=>upd(i,'tarea',e.target.value)} />
-                      <input type="date" className="form-input w-36 !bg-bg" value={et.vencimiento} onChange={e=>upd(i,'vencimiento',e.target.value)} />
+                    <div key={i} className="flex gap-2 items-center p-2 rounded-lg" style={{ background:'var(--surface-hover)', border:'1px solid #232838' }}>
+                      <input className="form-input flex-1" style={{ background:'var(--bg)', color:'var(--text)' }} placeholder="Tarea..." value={et.tarea} onChange={e=>upd(i,'tarea',e.target.value)} />
+                      <input type="date" className="form-input w-36" style={{ background:'var(--bg)', color:'var(--text)' }} value={et.vencimiento} onChange={e=>upd(i,'vencimiento',e.target.value)} />
                       <button onClick={()=>remEtapa(i)} className="btn-icon hover:!text-red">✕</button>
                     </div>
                   ))}

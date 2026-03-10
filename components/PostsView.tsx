@@ -78,9 +78,9 @@ export default function PostsView() {
       <div className="rounded-card overflow-hidden" style={{ border:'1px solid #232838' }}>
         <table className="w-full text-sm">
           <thead>
-            <tr style={{ background:'#141720', borderBottom:'1px solid #232838' }}>
+            <tr style={{ background:'var(--surface)', borderBottom:'1px solid #232838' }}>
               {['Fecha','Semana','Pilar','Formato','Estado','Objetivo','Gancho',''].map(h => (
-                <th key={h} className="text-left px-4 py-3 text-xs font-medium uppercase tracking-wider" style={{ color:'#525972' }}>{h}</th>
+                <th key={h} className="text-left px-4 py-3 text-xs font-medium uppercase tracking-wider" style={{ color:'var(--text-muted)' }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -89,10 +89,10 @@ export default function PostsView() {
               <tr><td colSpan={8} className="text-center py-12 text-textSub text-sm">No hay posts que coincidan</td></tr>
             ) : posts.map((p, i) => (
               <tr key={p.id}
-                style={{ borderBottom: i < posts.length-1 ? '1px solid #232838' : undefined, background: '#141720' }}
+                style={{ borderBottom: i < posts.length-1 ? '1px solid #232838' : undefined, background: 'var(--surface)' }}
                 className="transition-colors"
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#1A1E2A'}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#141720'}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--surface-hover)'}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'var(--surface)'}
               >
                 <td className="px-4 py-3">
                   <div className="font-medium text-text text-xs">{p.fecha}</div>
@@ -106,7 +106,7 @@ export default function PostsView() {
                   <div className="flex flex-wrap gap-1">
                     {formats(p).map(f => (
                       <span key={f} className="text-xs px-1.5 py-0.5 rounded-md font-medium"
-                        style={{ background:'#1A2540', color:'#4F7EF7' }}>{f}</span>
+                        style={{ background:'var(--surface-hover)', color:'var(--text)' }}>{f}</span>
                     ))}
                   </div>
                 </td>
